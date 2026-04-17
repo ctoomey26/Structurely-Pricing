@@ -13,7 +13,7 @@
       min-height: 100vh;
       padding: 40px 20px 60px;
     }
-
+ 
     /* ── Header ── */
     .header {
       text-align: center;
@@ -30,7 +30,7 @@
       font-size: 14px;
       color: #64748B;
     }
-
+ 
     /* ── Alert banner ── */
     .alert {
       max-width: 780px;
@@ -54,7 +54,7 @@
       letter-spacing: 0.5px;
     }
     .alert-body p { font-size: 13px; color: #78350F; line-height: 1.55; }
-
+ 
     /* ── Flow canvas ── */
     .flow {
       max-width: 780px;
@@ -64,7 +64,7 @@
       align-items: center;
       gap: 0;
     }
-
+ 
     /* ── Nodes ── */
     .node {
       width: 100%;
@@ -93,7 +93,7 @@
       line-height: 1.5;
       opacity: 0.85;
     }
-
+ 
     /* color variants */
     .node-navy {
       background: #0A1628;
@@ -114,7 +114,7 @@
       border: 1.5px solid #F59E0B;
       color: #78350F;
     }
-
+ 
     /* ── Diamond decision ── */
     .diamond-wrap {
       display: flex;
@@ -148,7 +148,7 @@
       padding: 0 24px;
       /* clip-path clips overflow so we cheat with a rotation trick via transform */
     }
-
+ 
     /* ── Branch row ── */
     .branch-row {
       display: flex;
@@ -174,7 +174,7 @@
     }
     .branch-tag-a { background: #E6F5F5; color: #009999; }
     .branch-tag-b { background: #FEF3C7; color: #92400E; }
-
+ 
     /* ── Connector lines (SVG) ── */
     .arrow {
       display: flex;
@@ -199,7 +199,7 @@
       color: #64748B;
       margin-bottom: 2px;
     }
-
+ 
     /* branch horizontal lines */
     .branch-connector {
       width: 100%;
@@ -236,7 +236,7 @@
       height: 30px;
       background: #94A3B8;
     }
-
+ 
     /* merge lines */
     .merge-connector {
       width: 100%;
@@ -269,7 +269,7 @@
       height: 30px;
       background: #94A3B8;
     }
-
+ 
     /* ── Billing split ── */
     .billing-split {
       display: flex;
@@ -304,13 +304,13 @@
     }
     .bc-green { background: #D1FAE5; color: #065F46; border: 1.5px solid #34D399; }
     .bc-orange { background: #FEE2E2; color: #7F1D1D; border: 1.5px solid #FCA5A5; }
-
+ 
     /* ── Cycle footer ── */
     .cycle-footer {
       max-width: 520px;
       width: 100%;
     }
-
+ 
     /* ── Legend ── */
     .legend {
       max-width: 780px;
@@ -332,7 +332,7 @@
       border-radius: 3px;
       flex-shrink: 0;
     }
-
+ 
     @media (max-width: 600px) {
       .branch-row { flex-direction: column; }
       .billing-split { flex-direction: column; }
@@ -341,53 +341,53 @@
   </style>
 </head>
 <body>
-
+ 
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
     <p>Token-based subscription with rolling billing &amp; monthly usage reconciliation</p>
   </div>
-
+ 
   <!-- ── FLOW ── -->
   <div class="flow">
-
+ 
     <!-- 1. Sales Consultation -->
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Client Provides Monthly Budget / Token Limit</div>
-      <div class="node-sub">Sales must consult to translate budget → token needs. Clients may have a dollar figure but are unlikely to know token volume. Sales owns this estimation.</div>
+      <div class="node-sub">Sales must consult to translate budget → token needs. Clients may have a dollar figure but are unlikely to know token volume. Sales owns this estimation. Both the subscription fee and token usage budget are confirmed and collected together at this stage — before signing.</div>
     </div>
-
+ 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-
+ 
     <!-- 2. Signup -->
     <div class="node node-teal">
       <div class="node-label">Step 2 · Signup &amp; Payment</div>
-      <div class="node-title">Client Pays Implementation Fee + Subscription Fee</div>
-      <div class="node-sub">Both subscription and token usage run on the same rolling cycle starting from signup date. Subscription renews monthly on that date; usage is invoiced on the 15th of the month after the cycle closes.<br><br><em>Example: A client on an April 20–May 20 cycle is billed for their subscription fee on April 20, and their usage fee on June 15.</em></div>
+      <div class="node-title">Client Pays Implementation Fee + Subscription Fee; Token Budget Set</div>
+      <div class="node-sub">Both subscription and token usage run on the same rolling cycle starting from signup date. Token budget was confirmed in Step 1 — no separate collection needed here. Subscription renews monthly on the cycle date; usage is invoiced on the 15th of the month after the cycle closes.<br><br><em>Example: A client on an April 20–May 20 cycle is billed for their subscription fee on April 20, and their usage fee on June 15.</em></div>
     </div>
-
+ 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-
+ 
     <!-- 3. Ongoing -->
     <div class="node node-slate">
-      <div class="node-label">Step 3 · Ongoing Monitoring</div>
-      <div class="node-title">Token Usage Tracked Against Monthly Budget</div>
-      <div class="node-sub">Token usage accumulates through the client's rolling billing cycle. System and/or sales monitors consumption relative to the client's set token limit.</div>
+      <div class="node-label">Step 3 · Daily Manual Monitoring</div>
+      <div class="node-title">Token Usage Tracked Manually Every Day</div>
+      <div class="node-sub">There is no automated tracking at this stage. CS/sales must manually log daily record counts of token usage to monitor consumption against the client's set limit. Day-by-day tracking is required to support daily overage billing.</div>
     </div>
-
+ 
     <div class="arrow">
       <div class="arrow-label">~90% of token limit reached</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
-
+ 
     <!-- 4. Sales Outreach -->
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
       <div class="node-sub">Proactive touchpoint — present options, understand client intent for the remainder of the month.</div>
     </div>
-
+ 
     <!-- Decision split connector -->
     <div class="arrow"><div class="arrow-line"></div></div>
     <div class="branch-connector">
@@ -395,7 +395,7 @@
       <div class="v-line-left"></div>
       <div class="v-line-right"></div>
     </div>
-
+ 
     <!-- 5a / 5b branches -->
     <div class="branch-row">
       <div class="branch">
@@ -411,13 +411,13 @@
         <div class="branch-tag branch-tag-b">Option B</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
-          <div class="node-label">Purchase Additional Tokens</div>
-          <div class="node-title">Addendum Signed &amp; Tokens Added</div>
-          <div class="node-sub">Client specifies additional token block / budget. Tokens apply to the <em>current billing cycle</em> only. New allocation is immediately active.</div>
+          <div class="node-label">Continue Beyond Budget</div>
+          <div class="node-title">Client Opts to Go Over Limit</div>
+          <div class="node-sub">Client continues using beyond their token budget. Overage is billed <strong>daily</strong> based on utilization for each day they exceed their limit. Manually processed by CS/sales.</div>
         </div>
       </div>
     </div>
-
+ 
     <!-- Merge back -->
     <div class="merge-connector">
       <div class="merge-h-line"></div>
@@ -425,14 +425,14 @@
       <div class="merge-v-right"></div>
     </div>
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-
+ 
     <!-- 6. Billing -->
     <div class="node node-navy" style="max-width:520px;">
       <div class="node-label">Step 5 · Usage Billing · 15th of Month After Cycle Close</div>
       <div class="node-title">Usage Invoice(s) Issued via Stripe</div>
       <div class="node-sub" style="opacity:0.75;font-size:12px;">e.g. Cycle: Apr 20 – May 20 → Usage billed June 15</div>
     </div>
-
+ 
     <!-- Split down to two billing outcomes -->
     <div class="branch-connector">
       <div class="h-line"></div>
@@ -451,13 +451,20 @@
       <div class="branch">
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="billing-card bc-orange" style="width:100%;">
-          <div class="bc-tag">If additional tokens purchased</div>
-          <div class="bc-title">Base Bill + Additional Stripe Bill</div>
-          <div class="bc-sub">Two charges issued: base usage + addendum block. Both billed on the 15th.</div>
+          <div class="bc-tag">If client went over budget</div>
+          <div class="bc-title">Daily Overage Charges + Base Bill</div>
+          <div class="bc-sub">Overage was billed daily throughout the cycle. Base usage bill still issued on the 15th at cycle close. Multiple Stripe charges.</div>
         </div>
       </div>
     </div>
-
+ 
+    <!-- Non-payment note -->
+    <div class="node node-amber" style="max-width:520px;margin-top:12px;">
+      <div class="node-label">⚠ Non-Payment</div>
+      <div class="node-title">Feature Flag Activated if Payment Missed</div>
+      <div class="node-sub">If a client does not pay, a feature flag is triggered to shut down <strong>outbound</strong> AI conversations. <strong>Inbound cannot currently be shut down.</strong> Manual follow-up required by CS/sales.</div>
+    </div>
+ 
     <!-- Merge back for Step 6 -->
     <div class="merge-connector">
       <div class="merge-h-line"></div>
@@ -465,39 +472,23 @@
       <div class="merge-v-right"></div>
     </div>
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-
+ 
     <!-- 7. Cycle repeat -->
     <div class="node node-teal cycle-footer">
       <div class="node-label">Step 6 · Cycle Repeats</div>
-      <div class="node-title">New Calendar Month Begins — Reset &amp; Review</div>
+      <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If client is <em>consistently at or above</em> their token budget, sales must work with them to increase the standard monthly budget. Treat as an expansion opportunity, not just an overage flag.
+        If client is <em>consistently at or above</em> their token budget, sales must work with them to increase the standard monthly budget. Treat as an expansion opportunity, not just an overage flag.<br><br>
+        <strong>Note:</strong> Clients cannot downgrade their token budget themselves — any budget changes must go through sales/CS.
       </div>
     </div>
-
+ 
   </div><!-- /flow -->
-
+ 
   <!-- Legend -->
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#0A1628;"></div> Sales / Contractual</div>
     <div class="legend-item"><div class="legend-dot" style="background:#009999;"></div> System / Billing</div>
     <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #E2E8F0;"></div> Operational</div>
     <div class="legend-item"><div class="legend-dot" style="background:#FEF3C7;border:1.5px solid #F59E0B;"></div> Trigger / Alert</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div> ⚠ Billing cycle nuance</div>
-  </div>
-
-  <!-- ⚠️ Billing Cycle Alert -->
-  <div class="alert" style="margin-top:36px;">
-    <div class="alert-icon">⚠️</div>
-    <div class="alert-body">
-      <strong>Important — Billing Cycle Structure to Communicate at Signing</strong>
-      <p>
-        Both the <strong>subscription fee</strong> and <strong>token usage fee</strong> run on the same rolling billing cycle, starting from the client's signup date.<br><br>
-        The subscription renews on that date each month. Token usage is tracked over that same cycle window and invoiced on the <strong>15th of the month following the cycle close</strong> — meaning there is a built-in lag before the usage bill arrives.<br><br>
-        <strong>Example:</strong> Client signs April 20 → cycle runs April 20–May 20 → subscription renews May 20 → usage invoice issued <strong>June 15</strong>.
-      </p>
-    </div>
-  </div>
-
-</body>
-</html>
+    <div class="legend-item"><div c
