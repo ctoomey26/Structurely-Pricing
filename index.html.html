@@ -1,14 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Structurely Pricing</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Structurely Pricing Model — Flow Map</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #F1F5F9;
+      color: #1E293B;
+      min-height: 100vh;
+      padding: 40px 20px 60px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0A1628;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #64748B;
+    }
+
+    /* ── Alert banner ── */
+    .alert {
+      max-width: 780px;
+      margin: 0 auto 36px;
+      background: #FEF3C7;
+      border: 1.5px solid #F59E0B;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .alert-body strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .alert-body p { font-size: 13px; color: #78350F; line-height: 1.55; }
+
+    /* ── Flow canvas ── */
+    .flow {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ── Nodes ── */
+    .node {
+      width: 100%;
+      max-width: 520px;
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .node-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      opacity: 0.7;
+    }
+    .node-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .node-sub {
+      font-size: 12.5px;
+      margin-top: 5px;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    /* color variants */
+    .node-navy {
+      background: #0A1628;
+      color: #fff;
+    }
+    .node-teal {
+      background: #009999;
+      color: #fff;
+    }
+    .node-slate {
+      background: #fff;
+      color: #1E293B;
+      border: 1.5px solid #E2E8F0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .node-amber {
+      background: #FEF3C7;
+      border: 1.5px solid #F59E0B;
+      color: #78350F;
+    }
+
+    /* ── Diamond decision ── */
+    .diamond-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      width: 100%;
+    }
+    .diamond-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #009999;
+      margin-bottom: 6px;
+    }
+    .diamond {
+      width: 200px;
+      height: 80px;
+      background: #009999;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .diamond span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      padding: 0 24px;
+      /* clip-path clips overflow so we cheat with a rotation trick via transform */
+    }
+
+    /* ── Branch row ── */
+    .branch-row {
+      display: flex;
+      width: 100%;
+      max-width: 720px;
+      gap: 16px;
+      margin-top: 0;
+    }
+    .branch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .branch-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .branch-tag-a { background: #E6F5F5; color: #009999; }
+    .branch-tag-b { background: #FEF3C7; color: #92400E; }
+
+    /* ── Connector lines (SVG) ── */
+    .arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2px 0;
+    }
+    .arrow-line {
+      width: 2px;
+      height: 24px;
+      background: #94A3B8;
+    }
+    .arrow-head {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 9px solid #94A3B8;
+    }
+    .arrow-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      margin-bottom: 2px;
+    }
+
+    /* branch horizontal lines */
+    .branch-connector {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      height: 30px;
+      margin-top: 0;
+    }
+    .h-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      height: 2px;
+      background: #94A3B8;
+    }
+    .v-line-left {
+      position: absolute;
+      top: 0;
+      left: 80px;
+      width: 2px;
+      height: 30px;
+      background: #94A3B8;
+    }
+    .v-line-right {
+      position: absolute;
+      top: 0;
+      right: 80px;
+      width: 2px;
+      height: 30px;
+      background: #94A3B8;
+    }
+
+    /* merge lines */
+    .merge-connector {
+      width: 100%;
+      max-width: 720px;
+      position: relative;
+      height: 30px;
+    }
+    .merge-h-line {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      height: 2px;
+      background: #94A3B8;
+    }
+    .merge-v-left {
+      position: absolute;
+      bottom: 0;
+      left: 80px;
+      width: 2px;
+      height: 30px;
+      background: #94A3B8;
+    }
+    .merge-v-right {
+      position: absolute;
+      bottom: 0;
+      right: 80px;
+      width: 2px;
+      height: 30px;
+      background: #94A3B8;
+    }
+
+    /* ── Billing split ── */
+    .billing-split {
+      display: flex;
+      width: 100%;
+      max-width: 660px;
+      gap: 14px;
+      margin-top: 0;
+    }
+    .billing-card {
+      flex: 1;
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .billing-card .bc-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+      opacity: 0.75;
+    }
+    .billing-card .bc-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .billing-card .bc-sub {
+      font-size: 12px;
+      opacity: 0.85;
+      line-height: 1.45;
+    }
+    .bc-green { background: #D1FAE5; color: #065F46; border: 1.5px solid #34D399; }
+    .bc-orange { background: #FEE2E2; color: #7F1D1D; border: 1.5px solid #FCA5A5; }
+
+    /* ── Cycle footer ── */
+    .cycle-footer {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    /* ── Legend ── */
+    .legend {
+      max-width: 780px;
+      margin: 40px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: #475569;
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 600px) {
+      .branch-row { flex-direction: column; }
+      .billing-split { flex-direction: column; }
+      .node { max-width: 100%; }
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>Structurely Pricing</h1>
-    <p>Placeholder page.</p>
-  </main>
+
+  <div class="header">
+    <h1>Structurely · Pricing Model Flow</h1>
+    <p>Token-based subscription with rolling billing &amp; monthly usage reconciliation</p>
+  </div>
+
+  <!-- ── FLOW ── -->
+  <div class="flow">
+
+    <!-- 1. Sales Consultation -->
+    <div class="node node-navy">
+      <div class="node-label">Step 1 · Sales</div>
+      <div class="node-title">Client Provides Monthly Budget / Token Limit</div>
+      <div class="node-sub">Sales must consult to translate budget → token needs. Clients may have a dollar figure but are unlikely to know token volume. Sales owns this estimation.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- 2. Signup -->
+    <div class="node node-teal">
+      <div class="node-label">Step 2 · Signup &amp; Payment</div>
+      <div class="node-title">Client Pays Implementation Fee + Subscription Fee</div>
+      <div class="node-sub">Both subscription and token usage run on the same rolling cycle starting from signup date. Subscription renews monthly on that date; usage is invoiced on the 15th of the month after the cycle closes.<br><br><em>Example: A client on an April 20–May 20 cycle is billed for their subscription fee on April 20, and their usage fee on June 15.</em></div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- 3. Ongoing -->
+    <div class="node node-slate">
+      <div class="node-label">Step 3 · Ongoing Monitoring</div>
+      <div class="node-title">Token Usage Tracked Against Monthly Budget</div>
+      <div class="node-sub">Token usage accumulates through the client's rolling billing cycle. System and/or sales monitors consumption relative to the client's set token limit.</div>
+    </div>
+
+    <div class="arrow">
+      <div class="arrow-label">~90% of token limit reached</div>
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+    </div>
+
+    <!-- 4. Sales Outreach -->
+    <div class="node node-amber">
+      <div class="node-label">Step 4 · Trigger</div>
+      <div class="node-title">Sales Reaches Out to Client</div>
+      <div class="node-sub">Proactive touchpoint — present options, understand client intent for the remainder of the month.</div>
+    </div>
+
+    <!-- Decision split connector -->
+    <div class="arrow"><div class="arrow-line"></div></div>
+    <div class="branch-connector">
+      <div class="h-line"></div>
+      <div class="v-line-left"></div>
+      <div class="v-line-right"></div>
+    </div>
+
+    <!-- 5a / 5b branches -->
+    <div class="branch-row">
+      <div class="branch">
+        <div class="branch-tag branch-tag-a">Option A</div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="node node-slate" style="max-width:100%;">
+          <div class="node-label">Maintain Budget</div>
+          <div class="node-title">Client Stays at Current Limit</div>
+          <div class="node-sub">Once 100% is reached, AI conversations stop for the remainder of the billing cycle. No addendum needed.</div>
+        </div>
+      </div>
+      <div class="branch">
+        <div class="branch-tag branch-tag-b">Option B</div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="node node-slate" style="max-width:100%;">
+          <div class="node-label">Purchase Additional Tokens</div>
+          <div class="node-title">Addendum Signed &amp; Tokens Added</div>
+          <div class="node-sub">Client specifies additional token block / budget. Tokens apply to the <em>current billing cycle</em> only. New allocation is immediately active.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Merge back -->
+    <div class="merge-connector">
+      <div class="merge-h-line"></div>
+      <div class="merge-v-left"></div>
+      <div class="merge-v-right"></div>
+    </div>
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- 6. Billing -->
+    <div class="node node-navy" style="max-width:520px;">
+      <div class="node-label">Step 5 · Usage Billing · 15th of Month After Cycle Close</div>
+      <div class="node-title">Usage Invoice(s) Issued via Stripe</div>
+      <div class="node-sub" style="opacity:0.75;font-size:12px;">e.g. Cycle: Apr 20 – May 20 → Usage billed June 15</div>
+    </div>
+
+    <!-- Split down to two billing outcomes -->
+    <div class="branch-connector">
+      <div class="h-line"></div>
+      <div class="v-line-left"></div>
+      <div class="v-line-right"></div>
+    </div>
+    <div class="branch-row" style="max-width:660px;">
+      <div class="branch">
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="billing-card bc-green" style="width:100%;">
+          <div class="bc-tag">If ≤ 100% of base budget</div>
+          <div class="bc-title">Single Usage Bill</div>
+          <div class="bc-sub">One Stripe charge for the cycle's usage. Straightforward.</div>
+        </div>
+      </div>
+      <div class="branch">
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="billing-card bc-orange" style="width:100%;">
+          <div class="bc-tag">If additional tokens purchased</div>
+          <div class="bc-title">Base Bill + Additional Stripe Bill</div>
+          <div class="bc-sub">Two charges issued: base usage + addendum block. Both billed on the 15th.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Merge back for Step 6 -->
+    <div class="merge-connector">
+      <div class="merge-h-line"></div>
+      <div class="merge-v-left"></div>
+      <div class="merge-v-right"></div>
+    </div>
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- 7. Cycle repeat -->
+    <div class="node node-teal cycle-footer">
+      <div class="node-label">Step 6 · Cycle Repeats</div>
+      <div class="node-title">New Calendar Month Begins — Reset &amp; Review</div>
+      <div class="node-sub">
+        If client is <em>consistently at or above</em> their token budget, sales must work with them to increase the standard monthly budget. Treat as an expansion opportunity, not just an overage flag.
+      </div>
+    </div>
+
+  </div><!-- /flow -->
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#0A1628;"></div> Sales / Contractual</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#009999;"></div> System / Billing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #E2E8F0;"></div> Operational</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FEF3C7;border:1.5px solid #F59E0B;"></div> Trigger / Alert</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div> ⚠ Billing cycle nuance</div>
+  </div>
+
+  <!-- ⚠️ Billing Cycle Alert -->
+  <div class="alert" style="margin-top:36px;">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-body">
+      <strong>Important — Billing Cycle Structure to Communicate at Signing</strong>
+      <p>
+        Both the <strong>subscription fee</strong> and <strong>token usage fee</strong> run on the same rolling billing cycle, starting from the client's signup date.<br><br>
+        The subscription renews on that date each month. Token usage is tracked over that same cycle window and invoiced on the <strong>15th of the month following the cycle close</strong> — meaning there is a built-in lag before the usage bill arrives.<br><br>
+        <strong>Example:</strong> Client signs April 20 → cycle runs April 20–May 20 → subscription renews May 20 → usage invoice issued <strong>June 15</strong>.
+      </p>
+    </div>
+  </div>
+
 </body>
 </html>
