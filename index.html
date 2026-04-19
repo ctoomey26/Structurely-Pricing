@@ -13,7 +13,7 @@
       min-height: 100vh;
       padding: 40px 20px 60px;
     }
- 
+
     /* ── Header ── */
     .header {
       text-align: center;
@@ -30,7 +30,7 @@
       font-size: 14px;
       color: #64748B;
     }
- 
+
     /* ── Alert banner ── */
     .alert {
       max-width: 780px;
@@ -53,14 +53,6 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .alert-body p.alert-prose {
-      font-size: 13px;
-      color: #78350F;
-      line-height: 1.65;
-      margin-top: 10px;
-    }
-    .alert-nowrap { white-space: nowrap; }
- 
     /* ── Flow canvas ── */
     .flow {
       max-width: 780px;
@@ -70,7 +62,7 @@
       align-items: center;
       gap: 0;
     }
- 
+
     /* ── Nodes ── */
     .node {
       width: 100%;
@@ -99,7 +91,7 @@
       line-height: 1.5;
       opacity: 0.85;
     }
- 
+
     /* color variants */
     .node-navy {
       background: #0A1628;
@@ -120,41 +112,7 @@
       border: 1.5px solid #F59E0B;
       color: #78350F;
     }
- 
-    /* ── Diamond decision ── */
-    .diamond-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      width: 100%;
-    }
-    .diamond-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #009999;
-      margin-bottom: 6px;
-    }
-    .diamond {
-      width: 200px;
-      height: 80px;
-      background: #009999;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .diamond span {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      text-align: center;
-      padding: 0 24px;
-      /* clip-path clips overflow so we cheat with a rotation trick via transform */
-    }
- 
+
     /* ── Branch row ── */
     .branch-row {
       display: flex;
@@ -182,8 +140,8 @@
     }
     .branch-tag-a { background: #E6F5F5; color: #009999; }
     .branch-tag-b { background: #FEF3C7; color: #92400E; }
- 
-    /* ── Connector lines (SVG) ── */
+
+    /* ── Connector lines ── */
     .arrow {
       display: flex;
       flex-direction: column;
@@ -208,7 +166,7 @@
       color: #64748B;
       margin-bottom: 2px;
     }
- 
+
     /* branch horizontal lines */
     .branch-connector {
       width: 100%;
@@ -245,7 +203,7 @@
       height: 30px;
       background: #94A3B8;
     }
- 
+
     /* merge lines */
     .merge-connector {
       width: 100%;
@@ -278,13 +236,13 @@
       height: 30px;
       background: #94A3B8;
     }
- 
+
     /* ── Cycle footer ── */
     .cycle-footer {
       max-width: 520px;
       width: 100%;
     }
- 
+
     /* ── Legend ── */
     .legend {
       max-width: 780px;
@@ -306,82 +264,110 @@
       border-radius: 3px;
       flex-shrink: 0;
     }
- 
+
+    .alert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .alert-grid-h {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #92400E;
+      margin-bottom: 6px;
+    }
+    .alert-grid-p {
+      font-size: 13px;
+      color: #78350F;
+      line-height: 1.6;
+    }
+    .alert-grid-note {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #F6D860;
+      font-size: 12.5px;
+      color: #92400E;
+      font-style: italic;
+    }
+
     @media (max-width: 600px) {
       .branch-row { flex-direction: column; }
       .node { max-width: 100%; }
       .arrow-long .arrow-line { height: 72px; }
     }
-    @media (max-width: 520px) {
-      .alert-nowrap { white-space: normal; }
+    @media (max-width: 560px) {
+      .alert-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
- 
+
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>At signup: implementation fee, subscription, and prepaid token allotment — <strong>subscription and allotment share one rolling cycle</strong> from signup.<br><br>If the allotment runs out before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe the next day). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
+    <p>At signup: implementation fee, subscription, and a prepaid <strong>token amount</strong> for the cycle — <strong>subscription and token limits share one rolling cycle</strong> from signup.<br><br>If <strong>token usage</strong> hits the limit before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe <strong>the following day</strong>). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
   </div>
- 
+
   <!-- ── FLOW ── -->
   <div class="flow">
- 
+
     <!-- 1. Sales Consultation -->
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Scope the Plan Before Signing</div>
-      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly token amount (and budget).</div>
+      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly <strong>token amount</strong> (and budget).</div>
     </div>
- 
+
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
- 
+
     <!-- 2. Signup -->
     <div class="node node-teal">
       <div class="node-label">Step 2 · Signup &amp; Payment</div>
-      <div class="node-title">Implementation + Subscription + Prepaid Token Allotment</div>
-      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid token allotment for the cycle. <strong>Subscription renewals and the token allotment reset on the same rolling cycle</strong> (anchored to signup).</div>
+      <div class="node-title">Implementation + Subscription + Prepaid Token Amount</div>
+      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid <strong>token amount</strong> for the cycle. <strong>Subscription renewals and token limits reset on the same rolling cycle</strong> (anchored to signup).</div>
     </div>
- 
+
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
- 
+
     <!-- 3. Ongoing -->
     <div class="node node-slate">
       <div class="node-label">Step 3 · Usage Monitoring</div>
-      <div class="node-title">Watch Consumption Against the Allotment</div>
-      <div class="node-sub">Monitor token usage so you can see who is approaching their token limit and ensure proactive outreach before the limit is reached.</div>
+      <div class="node-title">Watch Token Usage Against Token Limits</div>
+      <div class="node-sub">Monitor <strong>token usage</strong> so you can see who is approaching their <strong>token limit</strong> and ensure proactive outreach before that limit is reached.</div>
     </div>
- 
+
     <div class="arrow">
       <div class="arrow-label">~90% of token usage reached</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
- 
+
     <!-- 4. Sales Outreach -->
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
-      <div class="node-sub">Once a client reaches ~90% usage: Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
+      <div class="node-sub">Once a client reaches ~90% of token usage: Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
     </div>
- 
+
     <!-- Decision split connector -->
-    <div class="arrow"><div class="arrow-line"></div></div>
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
     <div class="branch-connector">
       <div class="h-line"></div>
       <div class="v-line-left"></div>
       <div class="v-line-right"></div>
     </div>
- 
-    <!-- Options A / B — asymmetric paths to Step 6 -->
+
+    <!-- Options A / B -->
     <div class="branch-row">
       <div class="branch">
         <div class="branch-tag branch-tag-a">Option A</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
-          <div class="node-label">Maintain Budget</div>
+          <div class="node-label">Stay Within Token Limits</div>
           <div class="node-title">Pause Until Next Cycle</div>
-          <div class="node-sub">Once 100% of the allotment is used, <strong>outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. No further outbound use until the next cycle begins.</div>
+          <div class="node-sub">Once <strong>token usage</strong> reaches the <strong>token limit</strong>, <strong>Outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. No further outbound use until the next cycle begins.</div>
         </div>
         <div class="arrow arrow-long"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
@@ -390,38 +376,38 @@
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
           <div class="node-label">Daily Overage</div>
-          <div class="node-title">Client Agrees to Continue Past the Allotment</div>
-          <div class="node-sub">Overage is calculated per day; each day's overage is charged in Stripe <strong>the next day</strong>. Miss an overage payment → account pauses until that balance is paid.</div>
+          <div class="node-title">Client Agrees to Continue Past the Token Limit</div>
+          <div class="node-sub">Overage is calculated per day; each day's overage is charged in Stripe <strong>the following day</strong>. Miss an overage payment → account pauses until that balance is paid.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-amber" style="max-width:100%;">
           <div class="node-label">⚠ Non-Payment (Option B)</div>
           <div class="node-title">Account Paused Until Overage Is Paid</div>
-          <div class="node-sub">Unpaid overage amounts pause the account until settled. Outbound is shut off via feature flag; <strong>inbound remains operational</strong> with today's product limits.</div>
+          <div class="node-sub">Unpaid overage amounts pause the account until settled. <strong>Outbound</strong> is shut off via feature flag; <strong>Inbound</strong> stays operational with today's product limits.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
     </div>
- 
+
     <div class="merge-connector">
       <div class="merge-h-line"></div>
       <div class="merge-v-left"></div>
       <div class="merge-v-right"></div>
     </div>
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
- 
+
     <!-- Step 6 · Cycle repeat -->
     <div class="node node-teal cycle-footer">
       <div class="node-label">Step 6 · Cycle Repeats</div>
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If a client is <em>consistently at or above</em> their prepaid allotment, sales should work with them to raise the standard subscription + token package.<br><br>
-        <strong>Note:</strong> Clients cannot downgrade their token allotment themselves; changes go through sales/CS.
+        If a client is <em>consistently at or above</em> their <strong>token limit</strong>, sales should work with them to raise their standard subscription and monthly <strong>token amount</strong>.<br><br>
+        <strong>Note:</strong> Clients cannot lower their <strong>token limits</strong> themselves; changes go through sales/CS.
       </div>
     </div>
- 
+
   </div><!-- /flow -->
- 
+
   <!-- Legend -->
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#0A1628;"></div> Sales / Contractual</div>
@@ -430,11 +416,32 @@
     <div class="legend-item"><div class="legend-dot" style="background:#FEF3C7;border:1.5px solid #F59E0B;"></div> Trigger / Alert</div>
   </div>
 
-  <div class="alert" style="margin-top: 28px;">
+  <!-- ⚠ How Money Moves -->
+  <div class="alert" style="margin-top:28px;">
     <div class="alert-icon">⚠</div>
     <div class="alert-body">
-      <strong>Important · How money moves</strong>
-      <p class="alert-prose">At signup the client pays <span class="alert-nowrap">Implementation, Subscription, and Token Allotment</span>. Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup. If the allotment runs out before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong>, with overage calculated each day and charged in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid. Capture overage rules in proposals so expectations are clear up front.</p>
+      <strong>Important · How Money Moves</strong>
+
+      <div class="alert-grid">
+
+        <div>
+          <div class="alert-grid-h">At Signup</div>
+          <div class="alert-grid-p">Client pays three fees upfront: <strong>implementation, subscription, and a prepaid token amount</strong>. Subscription renewals and <strong>token limits</strong> reset on the <strong>same rolling cycle</strong> anchored to the signup date.</div>
+        </div>
+
+        <div>
+          <div class="alert-grid-h">If Token Usage Hits the Limit Mid-Cycle</div>
+          <div class="alert-grid-p">
+            <div style="margin-bottom:8px;"><strong>Option A — Pause:</strong> <strong>Outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. Resets at the next cycle.</div>
+            <div><strong>Option B — Daily Overage:</strong> Overage is calculated each day and charged in Stripe <strong>the following day</strong>. Unpaid overage pauses the account until that balance is cleared.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alert-grid-note">
+        Capture overage rules in proposals so expectations are clear up front.
+      </div>
     </div>
   </div>
 
