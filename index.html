@@ -54,6 +54,14 @@
       letter-spacing: 0.5px;
     }
     .alert-body p { font-size: 13px; color: #78350F; line-height: 1.55; }
+    .alert-body .alert-text p {
+      font-size: 13px;
+      color: #78350F;
+      line-height: 1.55;
+      margin: 0 0 12px;
+    }
+    .alert-body .alert-text p:last-child { margin-bottom: 0; }
+    .alert-nowrap { white-space: nowrap; }
  
     /* ── Flow canvas ── */
     .flow {
@@ -176,12 +184,6 @@
     }
     .branch-tag-a { background: #E6F5F5; color: #009999; }
     .branch-tag-b { background: #FEF3C7; color: #92400E; }
-    .branch-spacer {
-      flex: 1 1 auto;
-      min-height: 0;
-      width: 100%;
-      max-width: 280px;
-    }
  
     /* ── Connector lines (SVG) ── */
     .arrow {
@@ -201,6 +203,7 @@
       border-right: 7px solid transparent;
       border-top: 9px solid #94A3B8;
     }
+    .arrow-long .arrow-line { height: 132px; }
     .arrow-label {
       font-size: 11px;
       font-weight: 600;
@@ -309,7 +312,10 @@
     @media (max-width: 600px) {
       .branch-row { flex-direction: column; }
       .node { max-width: 100%; }
-      .branch-spacer { flex: 0 0 16px; }
+      .arrow-long .arrow-line { height: 28px; }
+    }
+    @media (max-width: 520px) {
+      .alert-nowrap { white-space: normal; }
     }
   </style>
 </head>
@@ -317,7 +323,7 @@
  
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>At signup: implementation fee, subscription, and prepaid token allotment — <strong>subscription and allotment share one rolling cycle</strong> from signup.<br><br>If the allotment runs out before the cycle ends: <strong>pause until the next cycle</strong>, or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe the next day). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
+    <p>At signup: implementation fee, subscription, and prepaid token allotment — <strong>subscription and allotment share one rolling cycle</strong> from signup.<br><br>If the allotment runs out before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe the next day). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
   </div>
  
   <!-- ── FLOW ── -->
@@ -327,7 +333,7 @@
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Scope the Plan Before Signing</div>
-      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly token amount (and budget). Fees are not collected here — that happens at signup in Step 2.</div>
+      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly token amount (and budget).</div>
     </div>
  
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -336,7 +342,7 @@
     <div class="node node-teal">
       <div class="node-label">Step 2 · Signup &amp; Payment</div>
       <div class="node-title">Implementation + Subscription + Prepaid Token Allotment</div>
-      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid token allotment for the cycle. <strong>Subscription renewals and the token allotment reset on the same rolling cycle</strong> (anchored to signup). If they exhaust the allotment before the cycle ends, they either pause until the next cycle or agree to daily overage — calculated each day and charged in Stripe the following day. Unpaid overage pauses the account until it is settled.</div>
+      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid token allotment for the cycle. <strong>Subscription renewals and the token allotment reset on the same rolling cycle</strong> (anchored to signup).</div>
     </div>
  
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -345,11 +351,11 @@
     <div class="node node-slate">
       <div class="node-label">Step 3 · Usage Monitoring</div>
       <div class="node-title">Watch Consumption Against the Allotment</div>
-      <div class="node-sub">Monitor token usage so you can see who is approaching their prepaid limit and may need a proactive conversation before the cycle ends.</div>
+      <div class="node-sub">Once a client reaches ~90% of token usage, monitor usage to spot who is approaching their token limit and reach out proactively before the cycle ends.</div>
     </div>
  
     <div class="arrow">
-      <div class="arrow-label">~90% of prepaid allotment reached</div>
+      <div class="arrow-label">~90% of token usage reached</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
@@ -379,9 +385,7 @@
           <div class="node-title">Pause Until Next Cycle</div>
           <div class="node-sub">Once 100% of the allotment is used, <strong>outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. No further outbound use until the next cycle begins.</div>
         </div>
-        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-        <div class="branch-spacer" aria-hidden="true"></div>
-        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="arrow arrow-long"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
       <div class="branch">
         <div class="branch-tag branch-tag-b">Option B</div>
@@ -413,7 +417,7 @@
       <div class="node-label">Step 6 · Cycle Repeats</div>
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If a client is <em>consistently at or above</em> their prepaid allotment, sales should work with them to raise the standard subscription + token package — treat it as expansion, not only as overage.<br><br>
+        If a client is <em>consistently at or above</em> their prepaid allotment, sales should work with them to raise the standard subscription + token package.<br><br>
         <strong>Note:</strong> Clients cannot downgrade their token allotment themselves; changes go through sales/CS.
       </div>
     </div>
@@ -432,7 +436,12 @@
     <div class="alert-icon">⚠</div>
     <div class="alert-body">
       <strong>Important · How money moves</strong>
-      <p>At signup the client pays <strong>implementation</strong>, <strong>subscription</strong>, and the agreed <strong>prepaid token allotment</strong>. Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup. If the allotment is exhausted before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong> — we calculate overage each day and charge it in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid. Capture overage rules in proposals so expectations are clear up front.</p>
+      <div class="alert-text">
+        <p>At signup the client pays <span class="alert-nowrap">Implementation, Subscription, and Token Allotment</span>.</p>
+        <p>Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup.</p>
+        <p>If the allotment runs out before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong>. Overage is calculated each day and charged in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid.</p>
+        <p>Capture overage rules in proposals so expectations are clear up front.</p>
+      </div>
     </div>
   </div>
 
