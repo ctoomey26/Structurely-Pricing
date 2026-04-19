@@ -53,14 +53,12 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .alert-body p { font-size: 13px; color: #78350F; line-height: 1.55; }
-    .alert-body .alert-text p {
+    .alert-body p.alert-prose {
       font-size: 13px;
       color: #78350F;
-      line-height: 1.55;
-      margin: 0 0 12px;
+      line-height: 1.65;
+      margin-top: 10px;
     }
-    .alert-body .alert-text p:last-child { margin-bottom: 0; }
     .alert-nowrap { white-space: nowrap; }
  
     /* ── Flow canvas ── */
@@ -203,7 +201,7 @@
       border-right: 7px solid transparent;
       border-top: 9px solid #94A3B8;
     }
-    .arrow-long .arrow-line { height: 132px; }
+    .arrow-long .arrow-line { height: 228px; }
     .arrow-label {
       font-size: 11px;
       font-weight: 600;
@@ -312,7 +310,7 @@
     @media (max-width: 600px) {
       .branch-row { flex-direction: column; }
       .node { max-width: 100%; }
-      .arrow-long .arrow-line { height: 28px; }
+      .arrow-long .arrow-line { height: 72px; }
     }
     @media (max-width: 520px) {
       .alert-nowrap { white-space: normal; }
@@ -351,7 +349,7 @@
     <div class="node node-slate">
       <div class="node-label">Step 3 · Usage Monitoring</div>
       <div class="node-title">Watch Consumption Against the Allotment</div>
-      <div class="node-sub">Once a client reaches ~90% of token usage, monitor usage to spot who is approaching their token limit and reach out proactively before the cycle ends.</div>
+      <div class="node-sub">Monitor token usage so you can see who is approaching their token limit and ensure proactive outreach before the limit is reached.</div>
     </div>
  
     <div class="arrow">
@@ -364,7 +362,7 @@
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
-      <div class="node-sub">Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
+      <div class="node-sub">Once a client reaches ~90% usage: Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
     </div>
  
     <!-- Decision split connector -->
@@ -436,12 +434,7 @@
     <div class="alert-icon">⚠</div>
     <div class="alert-body">
       <strong>Important · How money moves</strong>
-      <div class="alert-text">
-        <p>At signup the client pays <span class="alert-nowrap">Implementation, Subscription, and Token Allotment</span>.</p>
-        <p>Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup.</p>
-        <p>If the allotment runs out before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong>. Overage is calculated each day and charged in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid.</p>
-        <p>Capture overage rules in proposals so expectations are clear up front.</p>
-      </div>
+      <p class="alert-prose">At signup the client pays <span class="alert-nowrap">Implementation, Subscription, and Token Allotment</span>. Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup. If the allotment runs out before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong>, with overage calculated each day and charged in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid. Capture overage rules in proposals so expectations are clear up front.</p>
     </div>
   </div>
 
