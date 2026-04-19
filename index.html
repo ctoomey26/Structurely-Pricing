@@ -279,10 +279,18 @@
       color: #92400E;
       margin-bottom: 6px;
     }
+    .alert-grid-h--signup {
+      font-size: 15px;
+      letter-spacing: 0.75px;
+      margin-bottom: 10px;
+    }
     .alert-grid-p {
       font-size: 13px;
       color: #78350F;
       line-height: 1.6;
+    }
+    .alert-grid > div > p.alert-grid-p {
+      margin: 0;
     }
     .alert-grid-note {
       margin-top: 12px;
@@ -307,7 +315,7 @@
 
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>At signup: implementation fee, subscription, and a prepaid <strong>token amount</strong> for the cycle — <strong>subscription and token limits share one rolling cycle</strong> from signup.<br><br>If <strong>token usage</strong> hits the limit before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe <strong>the following day</strong>). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
+    <p>At signup: implementation fee, <strong>subscription fee</strong>, and a prepaid <strong>token amount</strong> for the cycle — <strong>the subscription fee and token limits share one rolling cycle</strong> from signup.<br><br>If <strong>token usage</strong> hits the limit before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe <strong>the following day</strong>). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
   </div>
 
   <!-- ── FLOW ── -->
@@ -317,7 +325,7 @@
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Scope the Plan Before Signing</div>
-      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly <strong>token amount</strong> (and budget).</div>
+      <div class="node-sub">Sales works with the prospect to choose the right <strong>subscription tier</strong> and a realistic monthly <strong>token amount</strong> (and budget).</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -325,8 +333,8 @@
     <!-- 2. Signup -->
     <div class="node node-teal">
       <div class="node-label">Step 2 · Signup &amp; Payment</div>
-      <div class="node-title">Implementation + Subscription + Prepaid Token Amount</div>
-      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid <strong>token amount</strong> for the cycle. <strong>Subscription renewals and token limits reset on the same rolling cycle</strong> (anchored to signup).</div>
+      <div class="node-title">Implementation Fee + Subscription Fee + Prepaid Token Amount</div>
+      <div class="node-sub">At signup the client pays the implementation fee, <strong>subscription fee</strong>, and the agreed prepaid <strong>token amount</strong> for the cycle. <strong>Renewals of the subscription fee</strong> and token limits reset on the same rolling cycle (anchored to signup).</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -401,7 +409,7 @@
       <div class="node-label">Step 6 · Cycle Repeats</div>
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If a client is <em>consistently at or above</em> their <strong>token limit</strong>, sales should work with them to raise their standard subscription and monthly <strong>token amount</strong>.<br><br>
+        If a client is <em>consistently at or above</em> their <strong>token limit</strong>, sales should work with them to raise their standard <strong>subscription fee</strong> and monthly <strong>token amount</strong>.<br><br>
         <strong>Note:</strong> Clients cannot lower their <strong>token limits</strong> themselves; changes go through sales/CS.
       </div>
     </div>
@@ -425,8 +433,8 @@
       <div class="alert-grid">
 
         <div>
-          <div class="alert-grid-h">At Signup</div>
-          <div class="alert-grid-p">Client pays three fees upfront: <strong>implementation, subscription, and a prepaid token amount</strong>. Subscription renewals and <strong>token limits</strong> reset on the <strong>same rolling cycle</strong> anchored to the signup date.</div>
+          <div class="alert-grid-h alert-grid-h--signup">At Signup</div>
+          <p class="alert-grid-p">Client pays three fees upfront: <strong>Implementation Fee</strong>, <strong>Subscription Fee</strong>, and <strong>Prepaid Token Amount</strong>. <strong>Renewals of the subscription fee</strong> and token limits reset on the <strong>Same Rolling Cycle</strong> anchored to the signup date.</p>
         </div>
 
         <div>
