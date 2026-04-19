@@ -344,7 +344,7 @@
  
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>Token-based subscription with rolling billing &amp; monthly usage reconciliation</p>
+    <p>Token-based subscription: rolling cycle from signup; usage invoiced on the 15th after each cycle closes</p>
   </div>
  
   <!-- ── FLOW ── -->
@@ -385,7 +385,7 @@
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
-      <div class="node-sub">Proactive touchpoint — present options, understand client intent for the remainder of the month.</div>
+      <div class="node-sub">Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
     </div>
  
     <!-- Decision split connector -->
@@ -413,7 +413,7 @@
         <div class="node node-slate" style="max-width:100%;">
           <div class="node-label">Continue Beyond Budget</div>
           <div class="node-title">Client Opts to Go Over Limit</div>
-          <div class="node-sub">Client continues using beyond their token budget. Overage is billed <strong>daily</strong> based on utilization for each day they exceed their limit. Manually processed by CS/sales.</div>
+          <div class="node-sub">Client continues using beyond their token budget. Overage is tracked daily and billed <strong>the following day</strong> via Stripe based on each over-limit day. No additional paperwork is required beyond payment.</div>
         </div>
       </div>
     </div>
@@ -453,7 +453,7 @@
         <div class="billing-card bc-orange" style="width:100%;">
           <div class="bc-tag">If client went over budget</div>
           <div class="bc-title">Daily Overage Charges + Base Bill</div>
-          <div class="bc-sub">Overage was billed daily throughout the cycle. Base usage bill still issued on the 15th at cycle close. Multiple Stripe charges.</div>
+          <div class="bc-sub">Overage days are charged in Stripe the following day. Base usage bill is still issued on the 15th after cycle close. Multiple Stripe charges.</div>
         </div>
       </div>
     </div>
@@ -461,8 +461,8 @@
     <!-- Non-payment note -->
     <div class="node node-amber" style="max-width:520px;margin-top:12px;">
       <div class="node-label">⚠ Non-Payment</div>
-      <div class="node-title">Feature Flag Activated if Payment Missed</div>
-      <div class="node-sub">If a client does not pay, a feature flag is triggered to shut down <strong>outbound</strong> AI conversations. <strong>Inbound cannot currently be shut down.</strong> Manual follow-up required by CS/sales.</div>
+      <div class="node-title">Account Paused if Payment Missed</div>
+      <div class="node-sub">If a Stripe payment is missed, the account is paused until payment is settled. A feature flag shuts down <strong>outbound</strong> AI conversations; <strong>inbound cannot currently be shut down.</strong> Manual follow-up required by CS/sales.</div>
     </div>
  
     <!-- Merge back for Step 6 -->
@@ -491,4 +491,15 @@
     <div class="legend-item"><div class="legend-dot" style="background:#009999;"></div> System / Billing</div>
     <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #E2E8F0;"></div> Operational</div>
     <div class="legend-item"><div class="legend-dot" style="background:#FEF3C7;border:1.5px solid #F59E0B;"></div> Trigger / Alert</div>
-    <div class="legend-item"><div c
+  </div>
+
+  <div class="alert" style="margin-top: 28px;">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-body">
+      <strong>Important · Two related clocks</strong>
+      <p><strong>Subscription renewals</strong> and <strong>token usage limits</strong> both follow the same rolling billing cycle anchored to the client's signup date. <strong>Usage charges</strong> are not run mid-cycle: they are invoiced in Stripe on the <strong>15th of the month after that cycle closes</strong> (for example, a cycle from April 20 through May 20 → subscription billed April 20, renewal May 20, usage billed June 15). Set this expectation during sales so renewals and usage invoices landing close together do not surprise the client.</p>
+    </div>
+  </div>
+
+</body>
+</html>
