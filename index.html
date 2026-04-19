@@ -156,12 +156,14 @@
       max-width: 720px;
       gap: 16px;
       margin-top: 0;
+      align-items: stretch;
     }
     .branch {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 0;
     }
     .branch-tag {
       font-size: 11px;
@@ -174,6 +176,12 @@
     }
     .branch-tag-a { background: #E6F5F5; color: #009999; }
     .branch-tag-b { background: #FEF3C7; color: #92400E; }
+    .branch-spacer {
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
+      max-width: 280px;
+    }
  
     /* ── Connector lines (SVG) ── */
     .arrow {
@@ -270,41 +278,6 @@
       background: #94A3B8;
     }
  
-    /* ── Billing split ── */
-    .billing-split {
-      display: flex;
-      width: 100%;
-      max-width: 660px;
-      gap: 14px;
-      margin-top: 0;
-    }
-    .billing-card {
-      flex: 1;
-      border-radius: 8px;
-      padding: 12px 14px;
-      text-align: center;
-    }
-    .billing-card .bc-tag {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 4px;
-      opacity: 0.75;
-    }
-    .billing-card .bc-title {
-      font-size: 13.5px;
-      font-weight: 700;
-      margin-bottom: 3px;
-    }
-    .billing-card .bc-sub {
-      font-size: 12px;
-      opacity: 0.85;
-      line-height: 1.45;
-    }
-    .bc-green { background: #D1FAE5; color: #065F46; border: 1.5px solid #34D399; }
-    .bc-orange { background: #FEE2E2; color: #7F1D1D; border: 1.5px solid #FCA5A5; }
- 
     /* ── Cycle footer ── */
     .cycle-footer {
       max-width: 520px;
@@ -335,8 +308,8 @@
  
     @media (max-width: 600px) {
       .branch-row { flex-direction: column; }
-      .billing-split { flex-direction: column; }
       .node { max-width: 100%; }
+      .branch-spacer { flex: 0 0 16px; }
     }
   </style>
 </head>
@@ -344,7 +317,7 @@
  
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>Token-based subscription: rolling cycle from signup; usage invoiced on the 15th after each cycle closes</p>
+    <p>At signup: implementation fee, subscription, and prepaid token allotment — <strong>subscription and allotment share one rolling cycle</strong> from signup.<br><br>If the allotment runs out before the cycle ends: <strong>pause until the next cycle</strong>, or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe the next day). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
   </div>
  
   <!-- ── FLOW ── -->
@@ -353,8 +326,8 @@
     <!-- 1. Sales Consultation -->
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
-      <div class="node-title">Client Provides Monthly Budget / Token Limit</div>
-      <div class="node-sub">Sales must consult to translate budget → token needs. Clients may have a dollar figure but are unlikely to know token volume. Sales owns this estimation. Both the subscription fee and token usage budget are confirmed and collected together at this stage — before signing.</div>
+      <div class="node-title">Scope the Plan Before Signing</div>
+      <div class="node-sub">Sales works with the prospect to choose the right subscription tier and a realistic monthly token amount (and budget). Fees are not collected here — that happens at signup in Step 2.</div>
     </div>
  
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -362,21 +335,21 @@
     <!-- 2. Signup -->
     <div class="node node-teal">
       <div class="node-label">Step 2 · Signup &amp; Payment</div>
-      <div class="node-title">Client Pays Implementation Fee + Subscription Fee; Token Budget Set</div>
-      <div class="node-sub">Both subscription and token usage run on the same rolling cycle starting from signup date. Token budget was confirmed in Step 1 — no separate collection needed here. Subscription renews monthly on the cycle date; usage is invoiced on the 15th of the month after the cycle closes.<br><br><em>Example: A client on an April 20–May 20 cycle is billed for their subscription fee on April 20, and their usage fee on June 15.</em></div>
+      <div class="node-title">Implementation + Subscription + Prepaid Token Allotment</div>
+      <div class="node-sub">At signup the client pays the implementation fee, subscription, and the agreed prepaid token allotment for the cycle. <strong>Subscription renewals and the token allotment reset on the same rolling cycle</strong> (anchored to signup). If they exhaust the allotment before the cycle ends, they either pause until the next cycle or agree to daily overage — calculated each day and charged in Stripe the following day. Unpaid overage pauses the account until it is settled.</div>
     </div>
  
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
  
     <!-- 3. Ongoing -->
     <div class="node node-slate">
-      <div class="node-label">Step 3 · Daily Manual Monitoring</div>
-      <div class="node-title">Token Usage Tracked Manually Every Day</div>
-      <div class="node-sub">There is no automated tracking at this stage. CS/sales must manually log daily record counts of token usage to monitor consumption against the client's set limit. Day-by-day tracking is required to support daily overage billing.</div>
+      <div class="node-label">Step 3 · Usage Monitoring</div>
+      <div class="node-title">Watch Consumption Against the Allotment</div>
+      <div class="node-sub">Monitor token usage so you can see who is approaching their prepaid limit and may need a proactive conversation before the cycle ends.</div>
     </div>
  
     <div class="arrow">
-      <div class="arrow-label">~90% of token limit reached</div>
+      <div class="arrow-label">~90% of prepaid allotment reached</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
@@ -396,29 +369,38 @@
       <div class="v-line-right"></div>
     </div>
  
-    <!-- 5a / 5b branches -->
+    <!-- Options A / B — asymmetric paths to Step 6 -->
     <div class="branch-row">
       <div class="branch">
         <div class="branch-tag branch-tag-a">Option A</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
           <div class="node-label">Maintain Budget</div>
-          <div class="node-title">Client Stays at Current Limit</div>
-          <div class="node-sub">Once 100% is reached, AI conversations stop for the remainder of the billing cycle. No addendum needed.</div>
+          <div class="node-title">Pause Until Next Cycle</div>
+          <div class="node-sub">Once 100% of the allotment is used, <strong>outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. No further outbound use until the next cycle begins.</div>
         </div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="branch-spacer" aria-hidden="true"></div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
       <div class="branch">
         <div class="branch-tag branch-tag-b">Option B</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
-          <div class="node-label">Continue Beyond Budget</div>
-          <div class="node-title">Client Opts to Go Over Limit</div>
-          <div class="node-sub">Client continues using beyond their token budget. Overage is tracked daily and billed <strong>the following day</strong> via Stripe based on each over-limit day. No additional paperwork is required beyond payment.</div>
+          <div class="node-label">Daily Overage</div>
+          <div class="node-title">Client Agrees to Continue Past the Allotment</div>
+          <div class="node-sub">Overage is calculated per day; each day's overage is charged in Stripe <strong>the next day</strong>. Miss an overage payment → account pauses until that balance is paid.</div>
         </div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+        <div class="node node-amber" style="max-width:100%;">
+          <div class="node-label">⚠ Non-Payment (Option B)</div>
+          <div class="node-title">Account Paused Until Overage Is Paid</div>
+          <div class="node-sub">Unpaid overage amounts pause the account until settled. Outbound is shut off via feature flag; <strong>inbound remains operational</strong> with today's product limits.</div>
+        </div>
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
     </div>
  
-    <!-- Merge back -->
     <div class="merge-connector">
       <div class="merge-h-line"></div>
       <div class="merge-v-left"></div>
@@ -426,60 +408,13 @@
     </div>
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
  
-    <!-- 6. Billing -->
-    <div class="node node-navy" style="max-width:520px;">
-      <div class="node-label">Step 5 · Usage Billing · 15th of Month After Cycle Close</div>
-      <div class="node-title">Usage Invoice(s) Issued via Stripe</div>
-      <div class="node-sub" style="opacity:0.75;font-size:12px;">e.g. Cycle: Apr 20 – May 20 → Usage billed June 15</div>
-    </div>
- 
-    <!-- Split down to two billing outcomes -->
-    <div class="branch-connector">
-      <div class="h-line"></div>
-      <div class="v-line-left"></div>
-      <div class="v-line-right"></div>
-    </div>
-    <div class="branch-row" style="max-width:660px;">
-      <div class="branch">
-        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-        <div class="billing-card bc-green" style="width:100%;">
-          <div class="bc-tag">If ≤ 100% of base budget</div>
-          <div class="bc-title">Single Usage Bill</div>
-          <div class="bc-sub">One Stripe charge for the cycle's usage. Straightforward.</div>
-        </div>
-      </div>
-      <div class="branch">
-        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
-        <div class="billing-card bc-orange" style="width:100%;">
-          <div class="bc-tag">If client went over budget</div>
-          <div class="bc-title">Daily Overage Charges + Base Bill</div>
-          <div class="bc-sub">Overage days are charged in Stripe the following day. Base usage bill is still issued on the 15th after cycle close. Multiple Stripe charges.</div>
-        </div>
-      </div>
-    </div>
- 
-    <!-- Non-payment note -->
-    <div class="node node-amber" style="max-width:520px;margin-top:12px;">
-      <div class="node-label">⚠ Non-Payment</div>
-      <div class="node-title">Account Paused if Payment Missed</div>
-      <div class="node-sub">If a Stripe payment is missed, the account is paused until payment is settled. A feature flag shuts down <strong>outbound</strong> AI conversations; <strong>inbound cannot currently be shut down.</strong> Manual follow-up required by CS/sales.</div>
-    </div>
- 
-    <!-- Merge back for Step 6 -->
-    <div class="merge-connector">
-      <div class="merge-h-line"></div>
-      <div class="merge-v-left"></div>
-      <div class="merge-v-right"></div>
-    </div>
-    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
- 
-    <!-- 7. Cycle repeat -->
+    <!-- Step 6 · Cycle repeat -->
     <div class="node node-teal cycle-footer">
       <div class="node-label">Step 6 · Cycle Repeats</div>
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If client is <em>consistently at or above</em> their token budget, sales must work with them to increase the standard monthly budget. Treat as an expansion opportunity, not just an overage flag.<br><br>
-        <strong>Note:</strong> Clients cannot downgrade their token budget themselves — any budget changes must go through sales/CS.
+        If a client is <em>consistently at or above</em> their prepaid allotment, sales should work with them to raise the standard subscription + token package — treat it as expansion, not only as overage.<br><br>
+        <strong>Note:</strong> Clients cannot downgrade their token allotment themselves; changes go through sales/CS.
       </div>
     </div>
  
@@ -496,8 +431,8 @@
   <div class="alert" style="margin-top: 28px;">
     <div class="alert-icon">⚠</div>
     <div class="alert-body">
-      <strong>Important · Two related clocks</strong>
-      <p><strong>Subscription renewals</strong> and <strong>token usage limits</strong> both follow the same rolling billing cycle anchored to the client's signup date. <strong>Usage charges</strong> are not run mid-cycle: they are invoiced in Stripe on the <strong>15th of the month after that cycle closes</strong> (for example, a cycle from April 20 through May 20 → subscription billed April 20, renewal May 20, usage billed June 15). Set this expectation during sales so renewals and usage invoices landing close together do not surprise the client.</p>
+      <strong>Important · How money moves</strong>
+      <p>At signup the client pays <strong>implementation</strong>, <strong>subscription</strong>, and the agreed <strong>prepaid token allotment</strong>. Subscription renewals and the token allotment reset on the <strong>same rolling cycle</strong> from signup. If the allotment is exhausted before the cycle ends, they either <strong>pause outbound until the next cycle</strong> (inbound can stay on with current product limits) or <strong>agree to daily overage</strong> — we calculate overage each day and charge it in Stripe <strong>the following day</strong>. <strong>Unpaid overage pauses the account</strong> until that balance is paid. Capture overage rules in proposals so expectations are clear up front.</p>
     </div>
   </div>
 
