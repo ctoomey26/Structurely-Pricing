@@ -29,29 +29,7 @@
       margin-top: 6px;
       font-size: 14px;
       color: #64748B;
-    }
-
-    /* ── Alert banner ── */
-    .alert {
-      max-width: 780px;
-      margin: 0 auto 36px;
-      background: #FEF3C7;
-      border: 1.5px solid #F59E0B;
-      border-radius: 10px;
-      padding: 14px 18px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .alert-body > strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #92400E;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      line-height: 1.6;
     }
 
     /* ── Flow canvas ── */
@@ -89,9 +67,10 @@
     .node-sub {
       font-size: 12.5px;
       margin-top: 5px;
-      line-height: 1.5;
+      line-height: 1.6;
       opacity: 0.85;
     }
+    .node-sub strong { opacity: 1; }
 
     /* color variants */
     .node-navy { background: #0A1628; color: #fff; }
@@ -106,6 +85,141 @@
       background: #FEF3C7;
       border: 1.5px solid #F59E0B;
       color: #78350F;
+    }
+
+    /* ── Billing Timeline ── */
+    .timeline-wrap {
+      width: 100%;
+      max-width: 640px;
+    }
+    .timeline-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748B;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .timeline {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .timeline-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    /* connector line between steps */
+    .timeline-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 16px);
+      right: calc(-50% + 16px);
+      height: 2px;
+      background: #CBD5E1;
+    }
+    .timeline-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .dot-navy  { background: #0A1628; }
+    .dot-teal  { background: #009999; }
+    .dot-amber { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+
+    .timeline-content {
+      text-align: center;
+      margin-top: 8px;
+      padding: 0 4px;
+    }
+    .timeline-day {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94A3B8;
+      margin-bottom: 2px;
+    }
+    .timeline-event {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0A1628;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .timeline-bullets {
+      list-style: none;
+      text-align: left;
+      display: inline-block;
+    }
+    .timeline-bullets li {
+      font-size: 10.5px;
+      color: #475569;
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+    .timeline-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 2px;
+      color: #009999;
+      font-weight: 700;
+    }
+    .timeline-badge {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+    .badge-pilot  { background: #E6F5F5; color: #009999; }
+    .badge-contract { background: #EDE9FE; color: #5B21B6; }
+
+    .bill-manual {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      background: #FEF3C7;
+      color: #92400E;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+    .bill-auto {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      background: #D1FAE5;
+      color: #065F46;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 2px;
+      vertical-align: middle;
     }
 
     /* ── Credits callout panel ── */
@@ -282,7 +396,7 @@
       border-right: 7px solid transparent;
       border-top: 9px solid #94A3B8;
     }
-    .arrow-long .arrow-line { height: 260px; }
+    .arrow-long .arrow-line { height: 300px; }
     .arrow-label {
       font-size: 11px;
       font-weight: 600;
@@ -298,7 +412,6 @@
       justify-content: center;
       position: relative;
       height: 30px;
-      margin-top: 0;
     }
     .h-line {
       position: absolute;
@@ -309,7 +422,7 @@
       height: 2px;
       background: #94A3B8;
     }
-    .v-line-left { position: absolute; top: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
+    .v-line-left  { position: absolute; top: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
     .v-line-right { position: absolute; top: 0; right: 80px; width: 2px; height: 30px; background: #94A3B8; }
 
     .merge-connector { width: 100%; max-width: 720px; position: relative; height: 30px; }
@@ -318,10 +431,9 @@
       transform: translateX(-50%);
       width: calc(100% - 80px); height: 2px; background: #94A3B8;
     }
-    .merge-v-left { position: absolute; bottom: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
+    .merge-v-left  { position: absolute; bottom: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
     .merge-v-right { position: absolute; bottom: 0; right: 80px; width: 2px; height: 30px; background: #94A3B8; }
 
-    /* ── Cycle footer ── */
     .cycle-footer { max-width: 520px; width: 100%; }
 
     /* ── Legend ── */
@@ -336,6 +448,28 @@
     .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #475569; }
     .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
+    /* ── How Money Moves ── */
+    .alert {
+      max-width: 780px;
+      margin: 28px auto 0;
+      background: #FEF3C7;
+      border: 1.5px solid #F59E0B;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .alert-body > strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .alert-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -350,22 +484,12 @@
       color: #92400E;
       margin-bottom: 6px;
     }
-    .alert-grid-h--signup {
-      font-size: 15px;
-      letter-spacing: 0.75px;
-      margin-bottom: 10px;
-    }
     .alert-grid-p {
       font-size: 13px;
       color: #78350F;
       line-height: 1.6;
     }
-    .alert-grid-p strong {
-      font-weight: 700;
-      color: #78350F;
-      text-transform: none;
-      letter-spacing: normal;
-    }
+    .alert-grid-p strong { font-weight: 700; color: #78350F; }
     .alert-grid > div > p.alert-grid-p { margin: 0; }
     .alert-grid-p + .alert-grid-p { margin-top: 12px; }
     .alert-grid-note {
@@ -377,34 +501,15 @@
       font-style: italic;
     }
 
-    @media (max-width: 600px) {
-      .branch-row {
-        flex-direction: column;
-        gap: 20px;
-        max-width: 520px;
-      }
-      .branch { width: 100%; }
-      .branch-tag { align-self: flex-start; }
+    @media (max-width: 640px) {
+      .timeline { flex-direction: column; gap: 20px; }
+      .timeline-step:not(:last-child)::after { display: none; }
+      .branch-row { flex-direction: column; }
       .node { max-width: 100%; }
       .arrow-long .arrow-line { height: 72px; }
-      .branch-connector,
-      .merge-connector { display: none; }
-      .benchmarks-panel {
-        flex-direction: column;
-        gap: 0;
-        padding: 10px 14px;
-      }
-      .benchmark-item {
-        border-right: none;
-        border-bottom: 1px solid #E2E8F0;
-        padding: 8px 0 10px;
-      }
-      .benchmark-item:last-child {
-        border-bottom: none;
-        padding-bottom: 4px;
-      }
-    }
-    @media (max-width: 560px) {
+      .benchmarks-panel { flex-direction: column; }
+      .benchmark-item { border-right: none; border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; }
+      .benchmark-item:last-child { border-bottom: none; }
       .alert-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -413,18 +518,18 @@
 
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>Three components at activation: <strong>Implementation Fee</strong>, <strong>Support Plan</strong>, and <strong>Credits</strong>.<br><br>
-    Credits are usage-based — the AI draws from your credit balance as it works. At <strong>~90% usage</strong>, sales reaches out to discuss next steps. At <strong>100%</strong>, the AI mutes automatically — campaigns keep running, but the AI won't respond until the account is replenished or the client agrees to continue.</p>
+    <p>Three components at activation: <strong>Implementation Fee</strong>, <strong>Support Plan</strong>, and <strong>Credits</strong>.<br>
+    Credits are usage-based — the AI draws from your credit balance as it works. At <strong>~90% usage</strong>, sales reaches out to discuss next steps.<br>
+    At <strong>100%</strong>, the AI mutes automatically — campaigns keep running, but the AI won't respond until the account is replenished or the client agrees to continue.</p>
   </div>
 
-  <!-- ── FLOW ── -->
   <div class="flow">
 
     <!-- Step 1 · Sales -->
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Scope the Plan Before Signing</div>
-      <div class="node-sub">Sales establishes the client's <strong>monthly budget</strong>, <strong>lead volume</strong>, and the tasks/processes AI will automate. From there: present the right <strong>support plan tier</strong> and a credit amount that maps to their goals — sell why the proposed volume makes sense for what they're trying to accomplish.</div>
+      <div class="node-sub">Establish the client's <strong>monthly budget</strong>, <strong>lead volume</strong>, and the tasks/processes AI will automate. Present the right <strong>support plan tier</strong> and a credit amount that maps to their goals — sell why the proposed volume makes sense for what they're trying to accomplish.</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -432,11 +537,90 @@
     <!-- Step 2 · Activation -->
     <div class="node node-teal">
       <div class="node-label">Step 2 · Activation</div>
-      <div class="node-title">Implementation Fee + Support Plan + Credits</div>
+      <div class="node-title">What the Client Gets — and When They Pay</div>
       <div class="node-sub">
-        <strong>Implementation Fee</strong> — covers CRM integration, agent build, 30-day onboarding support, fine-tuning, and training.<br><br>
-        <strong>Support Plan</strong> — ongoing account management, agent monitoring and optimization. $499/mo (4 hrs) or $999/mo (8 hrs).<br><br>
-        <strong>Credits</strong> — the AI's working fuel. Credits are consumed as the AI engages leads. Replenish monthly; rate is based on your volume tier.
+        <strong>Implementation Fee</strong> (Month 0, one-time) — CRM integration, agent build, onboarding support, fine-tuning, and training. Standard $1,500 · Enterprise $2,500. Includes 10 hours of service in Month 0.<br><br>
+        <strong>Support Plan</strong> (kicks in Month 1) — ongoing account management, agent monitoring, and optimization. $499/mo · 4 hrs &nbsp;|&nbsp; $999/mo · 8 hrs.<br><br>
+        <strong>Credits</strong> (Month 1 onward) — the AI's working fuel. 1 SMS = 1 credit · 10 sec of voice = 1 credit. Client commits to a minimum monthly credit volume upfront; extra usage beyond that is billed daily at the same rate. No rollover.
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- Billing Timeline -->
+    <div class="timeline-wrap">
+      <div class="timeline-label">14-Month Contract Timeline</div>
+      <div class="timeline">
+
+        <div class="timeline-step">
+          <div class="timeline-dot dot-navy">M0</div>
+          <div class="timeline-content">
+            <div class="timeline-day">Month 0</div>
+            <div class="timeline-event">Account Created</div>
+            <ul class="timeline-bullets">
+              <li>Proposal signed</li>
+              <li>Impl. fee paid</li>
+              <li>Clock starts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="timeline-dot dot-teal">M1</div>
+          <div class="timeline-content">
+            <div class="timeline-badge badge-pilot">Pilot</div>
+            <div class="timeline-day">~Day 22</div>
+            <div class="timeline-event">Go Live</div>
+            <ul class="timeline-bullets">
+              <li>Support fee <span class="bill-manual">Manual · Sales</span></li>
+              <li>Pilot credits <span class="bill-manual">Manual · Sales</span></li>
+              <li>Extra usage <span class="bill-manual">Manual · Serenity</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="timeline-dot dot-teal">M2</div>
+          <div class="timeline-content">
+            <div class="timeline-badge badge-pilot">Pilot</div>
+            <div class="timeline-day">~Day 52</div>
+            <div class="timeline-event">Pilot Continues</div>
+            <ul class="timeline-bullets">
+              <li>Support fee <span class="bill-auto">Auto</span></li>
+              <li>Pilot credits <span class="bill-manual">Manual · Sales</span></li>
+              <li>Extra usage <span class="bill-manual">Manual · Serenity</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="timeline-dot dot-amber">M3</div>
+          <div class="timeline-content">
+            <div class="timeline-badge badge-contract">12-Mo Contract</div>
+            <div class="timeline-day">~Day 82</div>
+            <div class="timeline-event">Contract Converts</div>
+            <ul class="timeline-bullets">
+              <li>Support fee <span class="bill-auto">Auto</span></li>
+              <li>Min. credits <span class="bill-manual">Manual · Sales</span></li>
+              <li>Extra usage <span class="bill-manual">Manual · Serenity</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="timeline-dot dot-green">M4+</div>
+          <div class="timeline-content">
+            <div class="timeline-badge badge-contract">12-Mo Contract</div>
+            <div class="timeline-day">~Day 112+</div>
+            <div class="timeline-event">Fully Automated</div>
+            <ul class="timeline-bullets">
+              <li>Support fee <span class="bill-auto">Auto</span></li>
+              <li>Min. credits <span class="bill-auto">Auto</span></li>
+              <li>Extra usage <span class="bill-manual">Manual · Serenity</span></li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -444,12 +628,12 @@
 
     <!-- Credits Callout Panel -->
     <div class="credits-panel">
-      <div class="credits-panel-label">Credit Pricing · Volume Tiers</div>
-      <div class="credits-panel-title">The more leads you run, the lower your per-credit cost.</div>
+      <div class="credits-panel-label">Credit Pricing · Minimum Monthly Commitment</div>
+      <div class="credits-panel-title">Client agrees to a minimum monthly lead volume. That credit block is charged upfront at the start of each cycle. Extra usage beyond the minimum is billed daily at the same rate — no penalty.</div>
       <table class="credits-table">
         <thead>
           <tr>
-            <th>Monthly Leads</th>
+            <th>Committed Monthly Leads</th>
             <th>~Credits</th>
             <th style="text-align:right;">Rate / Credit</th>
           </tr>
@@ -463,7 +647,7 @@
           <tr>
             <td>1,000 – 5,000</td>
             <td>~6,000 – ~30,000</td>
-            <td class="rate">$0.13</td>
+            <td class="rate">$0.14</td>
           </tr>
           <tr>
             <td>5,000 – 20,000</td>
@@ -477,7 +661,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="credits-note">Rate applied as a flat rate to all credits in that month's band. Support plan tier and credit tier are independent — mix and match based on support needs vs. lead volume.</div>
+      <div class="credits-note">Example: Client commits to 2,000 leads/month → pays for ~12,000 credits at $0.14 upfront. Any usage beyond 12,000 credits that month is billed daily at $0.14/credit. Support plan and credit tier are independent.</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
@@ -486,11 +670,11 @@
     <div class="node node-slate">
       <div class="node-label">Step 3 · Usage Monitoring</div>
       <div class="node-title">Watch Credit Usage Against Credit Limit</div>
-      <div class="node-sub">Monitor <strong>credit usage</strong> so you can see who is approaching their <strong>credit limit</strong> and ensure proactive outreach before it's reached. Note: it's important clients stay on top of how many leads they're enrolling in campaigns — campaigns continue running even after the credit limit is hit.</div>
+      <div class="node-sub">Monitor <strong>credit usage</strong> so you can see who is approaching their <strong>credit limit</strong> and ensure proactive outreach before it's reached. Important: campaigns continue running even after the credit limit is hit — clients should stay on top of how many leads they're enrolling.</div>
     </div>
 
     <div class="arrow">
-      <div class="arrow-label">~90% of credit usage reached</div>
+      <div class="arrow-label">~90% of credits used</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
@@ -499,12 +683,12 @@
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
-      <div class="node-sub">At ~90% credit usage: proactive touchpoint — present options and understand the client's intent for the remainder of the billing cycle. If clients are hitting this threshold early in the month, this should also trigger a conversation about increasing their monthly credit volume for a lower per-credit rate.</div>
+      <div class="node-sub">At ~90% credit usage: proactive touchpoint — present options and understand the client's intent for the remainder of the billing cycle. If clients are hitting this point early in the month, surface the conversation about moving to a higher credit volume for a lower per-credit rate.</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
 
-    <!-- Usage Benchmarks Panel -->
+    <!-- Usage Benchmarks -->
     <div class="benchmarks-panel">
       <div class="benchmark-item">
         <div class="benchmark-val">~30s</div>
@@ -537,7 +721,7 @@
         <div class="node node-slate" style="max-width:100%;">
           <div class="node-label">Pause Until Next Cycle</div>
           <div class="node-title">AI Mutes at 100% — Campaign Keeps Running</div>
-          <div class="node-sub">Once <strong>credit usage</strong> hits 100%, the AI mutes automatically. <strong>Campaigns continue running</strong> — but the AI won't respond to active conversations until the next billing cycle begins. No overage charges.</div>
+          <div class="node-sub">Once credits hit 100%, the AI mutes automatically. <strong>Campaigns continue running</strong> — but the AI won't respond to active conversations until the next billing cycle begins. No additional charges.</div>
         </div>
         <div class="arrow arrow-long"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
@@ -547,13 +731,13 @@
         <div class="node node-slate" style="max-width:100%;">
           <div class="node-label">Continue with Auto-Pay</div>
           <div class="node-title">Client Agrees to Continue Past the Credit Limit</div>
-          <div class="node-sub">Client opts in to continue past 100%. Overage is calculated per day; each day's overage is charged in Stripe <strong>the following day</strong> via auto-pay. Missing a payment triggers an immediate account pause.</div>
+          <div class="node-sub">Client opts in to continue past 100%. Daily usage is calculated each day and charged in Stripe <strong>the following day</strong> at the same per-credit rate — no penalty. Missing a payment triggers an immediate AI mute.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-amber" style="max-width:100%;">
           <div class="node-label">⚠ Non-Payment (Option B)</div>
           <div class="node-title">AI Mutes Until Balance Is Cleared</div>
-          <div class="node-sub">Unpaid overage amounts mute the AI immediately. <strong>Campaigns continue running</strong> — but the AI won't respond to any active conversations until the balance is paid and the account is reinstated.</div>
+          <div class="node-sub">Unpaid daily usage mutes the AI immediately. <strong>Campaigns continue running</strong> — but the AI won't respond to any active conversations until the balance is paid and the account is reinstated.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
@@ -572,7 +756,7 @@
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
         If a client is <em>consistently at or above</em> their <strong>credit limit</strong>, sales should work with them to increase their monthly credit volume — moving to a higher band also unlocks a lower per-credit rate.<br><br>
-        <strong>Note:</strong> Clients cannot adjust their support plan tier or credit volume themselves; all changes go through sales/CS.
+        <strong>Note:</strong> Clients cannot adjust their support plan or credit volume themselves — all changes go through sales/CS.
       </div>
     </div>
 
@@ -582,11 +766,11 @@
     <div class="crosssell-panel">
       <div class="crosssell-label">Cross-Sell Opportunities</div>
       <div class="crosssell-items">
-        <div class="crosssell-tag">📋 Leads</div>
-        <div class="crosssell-tag">📞 AI PowerDialer</div>
+        <div class="crosssell-tag">📋 Lead Store</div>
+        <div class="crosssell-tag">📞 AI Power Dialer</div>
         <div class="crosssell-tag">🎓 AI Training / AI RevOps</div>
       </div>
-      <div class="upsell-note"><strong>Upsell trigger:</strong> Clients consistently hitting their credit limit early in the cycle are the highest-priority expansion conversation — more credits at a lower tier rate is an easy value story.</div>
+      <div class="upsell-note"><strong>Upsell trigger:</strong> Clients consistently hitting their credit limit early in the cycle are the highest-priority expansion conversation — more credits at a lower per-credit rate is an easy value story.</div>
     </div>
 
   </div><!-- /flow -->
@@ -599,29 +783,26 @@
     <div class="legend-item"><div class="legend-dot" style="background:#FEF3C7;border:1.5px solid #F59E0B;"></div> Trigger / Alert</div>
   </div>
 
-  <!-- ⚠ How Money Moves -->
-  <div class="alert" style="margin-top:28px;">
+  <!-- How Money Moves -->
+  <div class="alert">
     <div class="alert-icon">⚠</div>
     <div class="alert-body">
       <strong>Important · How Money Moves</strong>
-
       <div class="alert-grid">
-
         <div>
-          <div class="alert-grid-h alert-grid-h--signup">At Activation</div>
-          <p class="alert-grid-p">Client is charged three components: <strong>Implementation Fee</strong> (integration, agent build, onboarding support), <strong>Support Plan</strong> ($499/4 hrs or $999/8 hrs — account management &amp; monitoring), and <strong>Credits</strong> (usage-based, rate depends on lead volume tier). Support plan and credits renew on the <strong>same rolling cycle</strong> anchored to the activation date.</p>
+          <div class="alert-grid-h">At Activation &amp; Through the Pilot</div>
+          <p class="alert-grid-p"><strong>Month 0:</strong> Implementation fee only — $1,500 standard, $2,500 enterprise. Includes 10 hours of service. Clock starts here.</p>
+          <p class="alert-grid-p"><strong>Month 1–2 (Pilot):</strong> Support plan begins + committed pilot credits charged at cycle start. Extra usage billed daily at the same rate by Serenity. 60-day pilot from go-live — client can renegotiate credit commitment or opt out before Month 3.</p>
+          <p class="alert-grid-p"><strong>Month 3+:</strong> Converts to 12-month contract. Support and minimum monthly credit block renew each cycle. Extra usage continues daily.</p>
         </div>
-
         <div>
           <div class="alert-grid-h">If Credit Usage Hits 100% Mid-Cycle</div>
-          <p class="alert-grid-p"><strong>Option A — Pause:</strong> AI mutes automatically. Campaigns keep running but the AI won't respond. Resets at the next billing cycle. No additional charges.</p>
-          <p class="alert-grid-p"><strong>Option B — Auto-Pay:</strong> Client opts in to continue. Overage is calculated each day and charged in Stripe <strong>the following day</strong>. Unpaid overage mutes the AI until the balance is cleared — campaigns continue running.</p>
+          <p class="alert-grid-p"><strong>Option A — Pause:</strong> AI mutes automatically. Campaigns keep running but AI won't respond. Resets at the next billing cycle. No additional charges.</p>
+          <p class="alert-grid-p"><strong>Option B — Continue:</strong> Client opts in. Extra usage charged daily by Serenity at the same per-credit rate as their committed tier — no penalty pricing. Unpaid daily usage mutes the AI until cleared.</p>
         </div>
-
       </div>
-
       <div class="alert-grid-note">
-        Capture credit volume and overage rules in proposals so expectations are clear before signing.
+        Capture credit volume, support tier, and daily usage terms in proposals so expectations are set before signing.
       </div>
     </div>
   </div>
