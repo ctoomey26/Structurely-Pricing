@@ -44,7 +44,6 @@
       align-items: flex-start;
     }
     .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    /* Title only — do not use .alert-body strong or nested <strong> becomes block layout */
     .alert-body > strong {
       display: block;
       font-size: 13px;
@@ -54,6 +53,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     /* ── Flow canvas ── */
     .flow {
       max-width: 780px;
@@ -94,14 +94,8 @@
     }
 
     /* color variants */
-    .node-navy {
-      background: #0A1628;
-      color: #fff;
-    }
-    .node-teal {
-      background: #009999;
-      color: #fff;
-    }
+    .node-navy { background: #0A1628; color: #fff; }
+    .node-teal { background: #009999; color: #fff; }
     .node-slate {
       background: #fff;
       color: #1E293B;
@@ -113,6 +107,138 @@
       border: 1.5px solid #F59E0B;
       color: #78350F;
     }
+
+    /* ── Credits callout panel ── */
+    .credits-panel {
+      max-width: 520px;
+      width: 100%;
+      background: #0A1628;
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: #fff;
+    }
+    .credits-panel-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    .credits-panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #5EEAD4;
+    }
+    .credits-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .credits-table th {
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: rgba(255,255,255,0.5);
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .credits-table td {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.88);
+      vertical-align: middle;
+    }
+    .credits-table tr:last-child td { border-bottom: none; }
+    .credits-table .rate {
+      font-weight: 700;
+      color: #F59E0B;
+      text-align: right;
+    }
+    .credits-table .tbd {
+      font-weight: 700;
+      color: #94A3B8;
+      text-align: right;
+      font-style: italic;
+    }
+    .credits-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+    }
+
+    /* ── Usage benchmarks callout ── */
+    .benchmarks-panel {
+      max-width: 520px;
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 0;
+    }
+    .benchmark-item {
+      flex: 1;
+      text-align: center;
+      padding: 0 12px;
+      border-right: 1px solid #E2E8F0;
+    }
+    .benchmark-item:last-child { border-right: none; }
+    .benchmark-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: #009999;
+    }
+    .benchmark-label {
+      font-size: 10.5px;
+      color: #64748B;
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* ── Cross-sell panel ── */
+    .crosssell-panel {
+      max-width: 520px;
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+    .crosssell-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #009999;
+      margin-bottom: 8px;
+    }
+    .crosssell-items {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .crosssell-tag {
+      background: #F0FDFA;
+      border: 1px solid #99E6E6;
+      color: #065F5F;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .upsell-note {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: #64748B;
+      line-height: 1.5;
+    }
+    .upsell-note strong { color: #F59E0B; }
 
     /* ── Branch row ── */
     .branch-row {
@@ -149,18 +275,14 @@
       align-items: center;
       margin: 2px 0;
     }
-    .arrow-line {
-      width: 2px;
-      height: 24px;
-      background: #94A3B8;
-    }
+    .arrow-line { width: 2px; height: 24px; background: #94A3B8; }
     .arrow-head {
       width: 0; height: 0;
       border-left: 7px solid transparent;
       border-right: 7px solid transparent;
       border-top: 9px solid #94A3B8;
     }
-    .arrow-long .arrow-line { height: 200px; }
+    .arrow-long .arrow-line { height: 260px; }
     .arrow-label {
       font-size: 11px;
       font-weight: 600;
@@ -168,7 +290,6 @@
       margin-bottom: 2px;
     }
 
-    /* branch horizontal lines */
     .branch-connector {
       width: 100%;
       max-width: 720px;
@@ -188,61 +309,20 @@
       height: 2px;
       background: #94A3B8;
     }
-    .v-line-left {
-      position: absolute;
-      top: 0;
-      left: 80px;
-      width: 2px;
-      height: 30px;
-      background: #94A3B8;
-    }
-    .v-line-right {
-      position: absolute;
-      top: 0;
-      right: 80px;
-      width: 2px;
-      height: 30px;
-      background: #94A3B8;
-    }
+    .v-line-left { position: absolute; top: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
+    .v-line-right { position: absolute; top: 0; right: 80px; width: 2px; height: 30px; background: #94A3B8; }
 
-    /* merge lines */
-    .merge-connector {
-      width: 100%;
-      max-width: 720px;
-      position: relative;
-      height: 30px;
-    }
+    .merge-connector { width: 100%; max-width: 720px; position: relative; height: 30px; }
     .merge-h-line {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
+      position: absolute; bottom: 0; left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 80px);
-      height: 2px;
-      background: #94A3B8;
+      width: calc(100% - 80px); height: 2px; background: #94A3B8;
     }
-    .merge-v-left {
-      position: absolute;
-      bottom: 0;
-      left: 80px;
-      width: 2px;
-      height: 30px;
-      background: #94A3B8;
-    }
-    .merge-v-right {
-      position: absolute;
-      bottom: 0;
-      right: 80px;
-      width: 2px;
-      height: 30px;
-      background: #94A3B8;
-    }
+    .merge-v-left { position: absolute; bottom: 0; left: 80px; width: 2px; height: 30px; background: #94A3B8; }
+    .merge-v-right { position: absolute; bottom: 0; right: 80px; width: 2px; height: 30px; background: #94A3B8; }
 
     /* ── Cycle footer ── */
-    .cycle-footer {
-      max-width: 520px;
-      width: 100%;
-    }
+    .cycle-footer { max-width: 520px; width: 100%; }
 
     /* ── Legend ── */
     .legend {
@@ -253,18 +333,8 @@
       gap: 10px;
       justify-content: center;
     }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 12px;
-      color: #475569;
-    }
-    .legend-dot {
-      width: 12px; height: 12px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #475569; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
     .alert-grid {
       display: grid;
@@ -296,12 +366,8 @@
       text-transform: none;
       letter-spacing: normal;
     }
-    .alert-grid > div > p.alert-grid-p {
-      margin: 0;
-    }
-    .alert-grid-p + .alert-grid-p {
-      margin-top: 12px;
-    }
+    .alert-grid > div > p.alert-grid-p { margin: 0; }
+    .alert-grid-p + .alert-grid-p { margin-top: 12px; }
     .alert-grid-note {
       margin-top: 12px;
       padding-top: 10px;
@@ -312,9 +378,31 @@
     }
 
     @media (max-width: 600px) {
-      .branch-row { flex-direction: column; }
+      .branch-row {
+        flex-direction: column;
+        gap: 20px;
+        max-width: 520px;
+      }
+      .branch { width: 100%; }
+      .branch-tag { align-self: flex-start; }
       .node { max-width: 100%; }
       .arrow-long .arrow-line { height: 72px; }
+      .branch-connector,
+      .merge-connector { display: none; }
+      .benchmarks-panel {
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 14px;
+      }
+      .benchmark-item {
+        border-right: none;
+        border-bottom: 1px solid #E2E8F0;
+        padding: 8px 0 10px;
+      }
+      .benchmark-item:last-child {
+        border-bottom: none;
+        padding-bottom: 4px;
+      }
     }
     @media (max-width: 560px) {
       .alert-grid { grid-template-columns: 1fr; }
@@ -325,52 +413,116 @@
 
   <div class="header">
     <h1>Structurely · Pricing Model Flow</h1>
-    <p>At signup: implementation fee, <strong>subscription fee</strong>, and <strong>prepaid token limit fee</strong> — <strong>the subscription fee and token limits share one rolling cycle</strong> from signup.<br><br>If <strong>token usage</strong> hits the limit before the cycle ends: <strong>pause until the next cycle</strong> or <strong>agree to daily overage</strong> (calculated each day, charged in Stripe <strong>the following day</strong>). <strong>Unpaid overage pauses the account</strong> until it is settled.</p>
+    <p>Three components at activation: <strong>Implementation Fee</strong>, <strong>Support Plan</strong>, and <strong>Credits</strong>.<br><br>
+    Credits are usage-based — the AI draws from your credit balance as it works. At <strong>~90% usage</strong>, sales reaches out to discuss next steps. At <strong>100%</strong>, the AI mutes automatically — campaigns keep running, but the AI won't respond until the account is replenished or the client agrees to continue.</p>
   </div>
 
   <!-- ── FLOW ── -->
   <div class="flow">
 
-    <!-- 1. Sales Consultation -->
+    <!-- Step 1 · Sales -->
     <div class="node node-navy">
       <div class="node-label">Step 1 · Sales</div>
       <div class="node-title">Scope the Plan Before Signing</div>
-      <div class="node-sub">Sales works with the prospect to choose the right <strong>subscription tier</strong> and a realistic monthly <strong>token amount</strong> (and budget).</div>
+      <div class="node-sub">Sales establishes the client's <strong>monthly budget</strong>, <strong>lead volume</strong>, and the tasks/processes AI will automate. From there: present the right <strong>support plan tier</strong> and a credit amount that maps to their goals — sell why the proposed volume makes sense for what they're trying to accomplish.</div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
 
-    <!-- 2. Signup -->
+    <!-- Step 2 · Activation -->
     <div class="node node-teal">
-      <div class="node-label">Step 2 · Signup &amp; Payment</div>
-      <div class="node-title">Implementation Fee + Subscription Fee + Prepaid Token Limit Fee</div>
-      <div class="node-sub">At signup the client pays the implementation fee, <strong>subscription fee</strong>, and <strong>prepaid token limit fee</strong>. <strong>Renewals of the subscription fee</strong> and token limits reset on the same rolling cycle (anchored to signup).</div>
+      <div class="node-label">Step 2 · Activation</div>
+      <div class="node-title">Implementation Fee + Support Plan + Credits</div>
+      <div class="node-sub">
+        <strong>Implementation Fee</strong> — covers CRM integration, agent build, 30-day onboarding support, fine-tuning, and training.<br><br>
+        <strong>Support Plan</strong> — ongoing account management, agent monitoring and optimization. $499/mo (4 hrs) or $999/mo (8 hrs).<br><br>
+        <strong>Credits</strong> — the AI's working fuel. Credits are consumed as the AI engages leads. Replenish monthly; rate is based on your volume tier.
+      </div>
     </div>
 
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
 
-    <!-- 3. Ongoing -->
+    <!-- Credits Callout Panel -->
+    <div class="credits-panel">
+      <div class="credits-panel-label">Credit Pricing · Volume Tiers</div>
+      <div class="credits-panel-title">The more leads you run, the lower your per-credit cost.</div>
+      <table class="credits-table">
+        <thead>
+          <tr>
+            <th>Monthly Leads</th>
+            <th>~Credits</th>
+            <th style="text-align:right;">Rate / Credit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0 – 1,000</td>
+            <td>0 – ~6,000</td>
+            <td class="rate">$0.20</td>
+          </tr>
+          <tr>
+            <td>1,000 – 5,000</td>
+            <td>~6,000 – ~30,000</td>
+            <td class="rate">$0.13</td>
+          </tr>
+          <tr>
+            <td>5,000 – 20,000</td>
+            <td>~30,000 – ~120,000</td>
+            <td class="rate">$0.09</td>
+          </tr>
+          <tr>
+            <td>20,000+</td>
+            <td>~120,000+</td>
+            <td class="tbd">TBD</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="credits-note">Rate applied as a flat rate to all credits in that month's band. Support plan tier and credit tier are independent — mix and match based on support needs vs. lead volume.</div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- Step 3 · Usage Monitoring -->
     <div class="node node-slate">
       <div class="node-label">Step 3 · Usage Monitoring</div>
-      <div class="node-title">Watch Token Usage Against Token Limits</div>
-      <div class="node-sub">Monitor <strong>token usage</strong> so you can see who is approaching their <strong>token limit</strong> and ensure proactive outreach before that limit is reached.</div>
+      <div class="node-title">Watch Credit Usage Against Credit Limit</div>
+      <div class="node-sub">Monitor <strong>credit usage</strong> so you can see who is approaching their <strong>credit limit</strong> and ensure proactive outreach before it's reached. Note: it's important clients stay on top of how many leads they're enrolling in campaigns — campaigns continue running even after the credit limit is hit.</div>
     </div>
 
     <div class="arrow">
-      <div class="arrow-label">~90% of token usage reached</div>
+      <div class="arrow-label">~90% of credit usage reached</div>
       <div class="arrow-line"></div>
       <div class="arrow-head"></div>
     </div>
 
-    <!-- 4. Sales Outreach -->
+    <!-- Step 4 · Trigger -->
     <div class="node node-amber">
       <div class="node-label">Step 4 · Trigger</div>
       <div class="node-title">Sales Reaches Out to Client</div>
-      <div class="node-sub">Once a client reaches ~90% of token usage: Proactive touchpoint — present options, understand client intent for the remainder of the billing cycle.</div>
+      <div class="node-sub">At ~90% credit usage: proactive touchpoint — present options and understand the client's intent for the remainder of the billing cycle. If clients are hitting this threshold early in the month, this should also trigger a conversation about increasing their monthly credit volume for a lower per-credit rate.</div>
     </div>
 
-    <!-- Decision split connector -->
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- Usage Benchmarks Panel -->
+    <div class="benchmarks-panel">
+      <div class="benchmark-item">
+        <div class="benchmark-val">~30s</div>
+        <div class="benchmark-label">Avg. AI call length</div>
+      </div>
+      <div class="benchmark-item">
+        <div class="benchmark-val">3 SMS</div>
+        <div class="benchmark-label">Avg. text conversation</div>
+      </div>
+      <div class="benchmark-item">
+        <div class="benchmark-val">5–7</div>
+        <div class="benchmark-label">Avg. touches to lead decision</div>
+      </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- Decision split -->
     <div class="branch-connector">
       <div class="h-line"></div>
       <div class="v-line-left"></div>
@@ -383,9 +535,9 @@
         <div class="branch-tag branch-tag-a">Option A</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
-          <div class="node-label">Stay Within Token Limits</div>
-          <div class="node-title">Pause Until Next Cycle</div>
-          <div class="node-sub">Once <strong>token usage</strong> reaches the <strong>token limit</strong>, <strong>Outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. No further outbound use until the next cycle begins.</div>
+          <div class="node-label">Pause Until Next Cycle</div>
+          <div class="node-title">AI Mutes at 100% — Campaign Keeps Running</div>
+          <div class="node-sub">Once <strong>credit usage</strong> hits 100%, the AI mutes automatically. <strong>Campaigns continue running</strong> — but the AI won't respond to active conversations until the next billing cycle begins. No overage charges.</div>
         </div>
         <div class="arrow arrow-long"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
@@ -393,15 +545,15 @@
         <div class="branch-tag branch-tag-b">Option B</div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-slate" style="max-width:100%;">
-          <div class="node-label">Daily Overage</div>
-          <div class="node-title">Client Agrees to Continue Past the Token Limit</div>
-          <div class="node-sub">Overage is calculated per day; each day's overage is charged in Stripe <strong>the following day</strong>. Miss an overage payment → account pauses until that balance is paid.</div>
+          <div class="node-label">Continue with Auto-Pay</div>
+          <div class="node-title">Client Agrees to Continue Past the Credit Limit</div>
+          <div class="node-sub">Client opts in to continue past 100%. Overage is calculated per day; each day's overage is charged in Stripe <strong>the following day</strong> via auto-pay. Missing a payment triggers an immediate account pause.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
         <div class="node node-amber" style="max-width:100%;">
           <div class="node-label">⚠ Non-Payment (Option B)</div>
-          <div class="node-title">Account Paused Until Overage Is Paid</div>
-          <div class="node-sub">Unpaid overage amounts pause the account until settled. <strong>Outbound</strong> is shut off via feature flag; <strong>Inbound</strong> stays operational with today's product limits.</div>
+          <div class="node-title">AI Mutes Until Balance Is Cleared</div>
+          <div class="node-sub">Unpaid overage amounts mute the AI immediately. <strong>Campaigns continue running</strong> — but the AI won't respond to any active conversations until the balance is paid and the account is reinstated.</div>
         </div>
         <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
       </div>
@@ -414,14 +566,27 @@
     </div>
     <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
 
-    <!-- Step 6 · Cycle repeat -->
+    <!-- Step 6 · Cycle Repeats -->
     <div class="node node-teal cycle-footer">
       <div class="node-label">Step 6 · Cycle Repeats</div>
       <div class="node-title">New Billing Cycle Begins — Reset &amp; Review</div>
       <div class="node-sub">
-        If a client is <em>consistently at or above</em> their <strong>token limit</strong>, sales should work with them to raise their <strong>subscription tier</strong> and monthly <strong>token limit</strong>.<br><br>
-        <strong>Note:</strong> Clients cannot lower their <strong>subscription tier</strong> or <strong>token limits</strong> themselves; changes go through sales/CS.
+        If a client is <em>consistently at or above</em> their <strong>credit limit</strong>, sales should work with them to increase their monthly credit volume — moving to a higher band also unlocks a lower per-credit rate.<br><br>
+        <strong>Note:</strong> Clients cannot adjust their support plan tier or credit volume themselves; all changes go through sales/CS.
       </div>
+    </div>
+
+    <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div></div>
+
+    <!-- Cross-sell panel -->
+    <div class="crosssell-panel">
+      <div class="crosssell-label">Cross-Sell Opportunities</div>
+      <div class="crosssell-items">
+        <div class="crosssell-tag">📋 Leads</div>
+        <div class="crosssell-tag">📞 AI PowerDialer</div>
+        <div class="crosssell-tag">🎓 AI Training / AI RevOps</div>
+      </div>
+      <div class="upsell-note"><strong>Upsell trigger:</strong> Clients consistently hitting their credit limit early in the cycle are the highest-priority expansion conversation — more credits at a lower tier rate is an easy value story.</div>
     </div>
 
   </div><!-- /flow -->
@@ -443,20 +608,20 @@
       <div class="alert-grid">
 
         <div>
-          <div class="alert-grid-h alert-grid-h--signup">At Signup</div>
-          <p class="alert-grid-p">Client pays three fees upfront: <strong>Implementation Fee</strong>, <strong>Subscription Fee</strong>, and <strong>Prepaid Token Limit Fee</strong>. Renewals of the subscription fee and token limits reset on the <strong>Same Rolling Cycle</strong> anchored to the signup date.</p>
+          <div class="alert-grid-h alert-grid-h--signup">At Activation</div>
+          <p class="alert-grid-p">Client is charged three components: <strong>Implementation Fee</strong> (integration, agent build, onboarding support), <strong>Support Plan</strong> ($499/4 hrs or $999/8 hrs — account management &amp; monitoring), and <strong>Credits</strong> (usage-based, rate depends on lead volume tier). Support plan and credits renew on the <strong>same rolling cycle</strong> anchored to the activation date.</p>
         </div>
 
         <div>
-          <div class="alert-grid-h">If Token Usage Hits the Limit Mid-Cycle</div>
-          <p class="alert-grid-p"><strong>Option A — Pause:</strong> <strong>Outbound</strong> is paused for the rest of the cycle. <strong>Inbound</strong> stays operational with today's product limits. Resets at the next cycle.</p>
-          <p class="alert-grid-p"><strong>Option B — Daily Overage:</strong> Overage is calculated each day and charged in Stripe <strong>the following day</strong>. Unpaid overage pauses the account until that balance is cleared.</p>
+          <div class="alert-grid-h">If Credit Usage Hits 100% Mid-Cycle</div>
+          <p class="alert-grid-p"><strong>Option A — Pause:</strong> AI mutes automatically. Campaigns keep running but the AI won't respond. Resets at the next billing cycle. No additional charges.</p>
+          <p class="alert-grid-p"><strong>Option B — Auto-Pay:</strong> Client opts in to continue. Overage is calculated each day and charged in Stripe <strong>the following day</strong>. Unpaid overage mutes the AI until the balance is cleared — campaigns continue running.</p>
         </div>
 
       </div>
 
       <div class="alert-grid-note">
-        Capture overage rules in proposals so expectations are clear up front.
+        Capture credit volume and overage rules in proposals so expectations are clear before signing.
       </div>
     </div>
   </div>
